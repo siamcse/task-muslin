@@ -35,8 +35,8 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         let total = 0;
-        cartItems.forEach(book => {
-            total += parseInt(book.price);
+        cartItems.forEach(item => {
+            total += parseInt(item.price);
         });
         setTotalAmount(total);
     }, [cartItems])

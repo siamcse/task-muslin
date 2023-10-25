@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import loginImage from '../../assets/images/login.svg';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const SignUp = () => {
     const { handleSubmit, register } = useForm();
+    const { user, createUser } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (user?.email) {
+            navigate('/', { replace: true });
+        }
+    }, [user?.email]);
 
     const onSubmit = ({ name, email, password }) => {
         console.log(name, email, password);
+        createUser(email, password)
+            .then(result => {
+
+            })
+            .catch(e => console.log(e))
+
     };
     return (
         <div className="flex max-w-7xl mx-auto h-screen items-center">
@@ -48,7 +62,7 @@ const SignUp = () => {
                             <button
                                 type="submit"
                                 className="px-4 py-3 bg-orange-600 rounded-lg text-white w-full"
-                               
+
                             >
                                 Sign up
                             </button>

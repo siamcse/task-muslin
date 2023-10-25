@@ -1,9 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { StarIcon } from '@heroicons/react/24/solid'
+import { AuthContext, CartContext } from '../../contexts/AuthProvider';
 
 const ProductCard = ({ product }) => {
-    const { title, price, description, image, rating } = product;
+    const { id, title, price, description, image, rating } = product;
+    const { user } = useContext(AuthContext);
+    const { cartItems, setCartItems } = useContext(CartContext);
+    const navigate = useNavigate();
+
+
+    const handleAddToCart = (product) => {
+        if (user?.email) {
+            setCartItems([...cartItems, product]);
+        }
+        else {
+            navigate('/login');
+            toast("Login first");
+        }
+    }
+    console.log(cartItems);
     return (
         <div className='h-full border-2 border-gray rounded-lg'>
             <div className='px-8 py-6'>
@@ -31,7 +47,7 @@ const ProductCard = ({ product }) => {
                     </p>
                     <h1 className='text-2xl text-primary py-2'>Tk. {price}</h1>
                 </div>
-                <button className='inline-flex justify-center w-full rounded-md shadow-sm shadow-zinc-900/10 text-sm text-zinc-50 px-2 py-2 bg-orange-500 hover:bg-orange-700'>Add to Cart</button>
+                <button onClick={() => handleAddToCart(product)} className='inline-flex justify-center w-full rounded-md shadow-sm shadow-zinc-900/10 text-sm text-zinc-50 px-2 py-2 bg-orange-500 hover:bg-orange-700'>Add to Cart</button>
             </div>
         </div>
     );

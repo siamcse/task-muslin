@@ -7,16 +7,21 @@ import { AuthContext } from '../../contexts/AuthProvider';
 const Login = () => {
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
+    const { user, login } = useContext(AuthContext);
 
-    // useEffect(() => {
-    //     if (user?.email) {
-    //         navigate('/', { replace: true });
-    //     }
-    // }, [user?.email]);
+    useEffect(() => {
+        if (user?.email) {
+            navigate('/', { replace: true });
+        }
+    }, [user?.email]);
 
     const onSubmit = ({ email, password }) => {
         console.log(email, password);
+        login(email, password)
+            .then(result => {
+
+            })
+            .catch(e => console.log(e))
     };
     return (
         <div className="flex max-w-7xl h-screen items-center mx-auto">
