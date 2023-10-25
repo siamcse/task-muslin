@@ -5,7 +5,7 @@ import { StarIcon } from '@heroicons/react/24/solid'
 const ProductCard = ({ product }) => {
     const { title, price, description, image, rating } = product;
     return (
-        <div className='w-64 h-full border-2 border-gray rounded-lg'>
+        <div className='h-full border-2 border-gray rounded-lg'>
             <div className='px-8 py-6'>
                 <div className='h-64 flex justify-center'>
                     <img src={image} alt="" className='rounded max-h-56' />

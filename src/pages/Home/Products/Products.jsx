@@ -9,12 +9,17 @@ const Products = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch('https://fakestoreapi.com/products/categories')
             .then(res => res.json())
-            .then(data => setCategories(['all', ...data]))
+            .then(data => {
+                setCategories(['all', ...data]);
+                setIsLoading(false);
+            })
     }, [])
 
     useEffect(() => {
+        setIsLoading(true);
         let url;
         if (filterCategory !== 'all') {
             url = `https://fakestoreapi.com/products/category/${filterCategory}`;
@@ -24,20 +29,25 @@ const Products = () => {
         }
         if (url) {
             axios.get(url)
-                .then(res => setProducts(res.data))
+                .then(res => {
+                    setProducts(res.data);
+                    setIsLoading(false);
+                })
         }
     }, [filterCategory])
 
     const handleCategories = (category) => {
         setFilterCategory(category);
     }
+
+
     return (
         <div className='container mx-auto my-20'>
             <div>
                 <h1 className='text-4xl font-bold text-center pb-5'>Our Products</h1>
             </div>
             <hr />
-            <div className='py-4 flex justify-center items-center gap-10'>
+            <div className='py-4 flex flex-col md:flex-row justify-center items-center gap-10'>
                 {
                     categories?.map((category, i) => <button key={i} onClick={() => handleCategories(category)} className='px-4 py-3 capitalize text-2xl hover:text-orange-600 transition duration-200'>{category}</button>)
                 }
