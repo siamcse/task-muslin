@@ -19,7 +19,6 @@ const ProductCard = ({ product }) => {
             toast("Login first");
         }
     }
-    console.log(cartItems);
     return (
         <div className='h-full border-2 border-gray rounded-lg'>
             <div className='px-8 py-6'>

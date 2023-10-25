@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import loginImage from '../../assets/images/login.svg';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../contexts/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const { handleSubmit, register } = useForm();
     const { user, createUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (user?.email) {
